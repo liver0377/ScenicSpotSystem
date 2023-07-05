@@ -16,11 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from introduction import views
 from accounts import views as accounts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path("", views.home, name="home"),
+
     path("signup/", accounts_views.signup, name="signup"),
+
+   # 使用django官方的LogoutView
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+
+    # 使用django官方的LoginView
+    path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
 ]
