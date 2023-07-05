@@ -21,6 +21,9 @@ def signup(request):
     
     return render(request, "signup.html", { "form": form})
 
+def show_account_information(request):
+    return render(request, "account_informateion", )
+
 
 
  
