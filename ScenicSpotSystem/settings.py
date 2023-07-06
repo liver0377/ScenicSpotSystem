@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "introduction",
     "widget_tweaks",
     "accounts",
+    "unipayment",
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,12 @@ LOGIN_REDIRECT_URL = "home"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+
+
+ALIPAY_APP_ID = "9021000123601476"  # 支付宝APP ID
+ALIPAY_SERVER_URL = "https://openapi-sandbox.dl.alipaydev.com/gateway.do"
+APP_PRIVATE_KEY_STRING = open(os.path.join(BASE_DIR, "keys/app_private_key.pem"), 'r').read()
+ALIPAY_PUBLIC_KEY_STRING = open(os.path.join(BASE_DIR, "keys/alipay_public_key.pem"), 'r').read()
+ALIPAY_RETURN_URL = 'http://127.0.0.1:8000/shop/result/'   # 购买完成之后跳转到该网址
+ALIPAY_DEBUG = True

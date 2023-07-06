@@ -17,16 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from introduction import views
 from accounts import views as accounts_views
 from introduction import views as introduction_views
 from django.conf import settings
 from django.conf.urls.static import static
+from unipayment import views as uni_views 
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path("", views.home, name="home"),
+    path("", introduction_views.home, name="home"),
 
     path("signup/", accounts_views.signup, name="signup"),
 
@@ -40,5 +41,9 @@ urlpatterns = [
     path("account/<str:card_name>/", accounts_views.account_card, name="account_card"),
 
     path("introduction/scenicspot/<str:province_name>/", introduction_views.province_spots, name="province_spots"),
+
+    path("shop/alipay/", uni_views.alipay, name="alipay"),
+
+    path("shop/result/", uni_views.shop_result, name="shop_result"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
