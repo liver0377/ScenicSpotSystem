@@ -4,6 +4,7 @@ from django.shortcuts import reverse
 from django.contrib.auth.models import User
 from ..forms import SignUpForm
 from ..views import signup
+from introduction.models import Province
 
 
 # Create your tests here.
@@ -39,6 +40,7 @@ class SignUpTests(TestCase):
 
 class SuccessfulSignUpTests(TestCase):
     def setUp(self):
+        Province.objects.create(name="辽宁")
         url = reverse("signup")
         data = {
             "username": "john",

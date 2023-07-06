@@ -1,0 +1,26 @@
+{% extends "introduction_base.html" %}
+
+{% block introduction_content %}
+    <div class="container">
+        {% for spot in scenic_spots %}
+            <div class="card">
+                <div class="card-header">
+                    {{ spot.name }}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ spot.description }}</p>
+                    <p class="card-text">票价：{{ spot.ticket_price }}￥</p>
+                </div>
+                <div class="card-footer row">
+                    <div class="col-auto">
+                        <img src="{{ spot.image.url }}" alt="{{ spot.name }}" class="img-fluid">
+                    </div>
+                    <div class="col-auto">
+                        <a href="#" target="_blank" class="btn btn-primary btn-sm">马上购票</a>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

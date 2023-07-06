@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container ml-5 mr-auto">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white border">
+      <div class="container">
+        <ul class="navbar-nav mr-auto">
+          {% for province in provinces %}
+          <li class="nav-item {% if province == cur_province %}border{% endif %}">
+            <a class="nav-link mr-3 text-dark" href="{% url 'province_spots' province.name %}"> {{ province.name }} </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+ <div>
+{% block introduction_content %}
+{% endblock %}
+
+{% endblock %}

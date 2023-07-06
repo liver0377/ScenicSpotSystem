@@ -23,7 +23,7 @@
 
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active ">
-              <a class="nav-link mr-3" href="#">景区介绍</a>
+              <a class="nav-link mr-3" href="{% url 'home' %}">景区介绍</a>
             </li>
             <li class="nav-item mr-3">
               <a class="nav-link" href="#">旅游游记</a>
@@ -61,11 +61,11 @@
 
       </nav>
 
-        <div class="container">
+        {% comment %} <div class="container">
             <ol class="breadcrumb my-4">
                 {% block breadcrumb %} {% endblock %}
             </ol>
-        </div>
+        </div> {% endcomment %}
 
         {% block content %}
         {% endblock %}

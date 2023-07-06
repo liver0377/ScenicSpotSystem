@@ -19,6 +19,9 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from introduction import views
 from accounts import views as accounts_views
+from introduction import views as introduction_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +37,8 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
 
 
-    path("account/<str:card_name>/", accounts_views.account_card, name="account_card")
+    path("account/<str:card_name>/", accounts_views.account_card, name="account_card"),
 
-]
+    path("introduction/scenicspot/<str:province_name>/", introduction_views.province_spots, name="province_spots"),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
