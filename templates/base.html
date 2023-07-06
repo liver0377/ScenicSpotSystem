@@ -66,9 +66,10 @@
                 {% block breadcrumb %} {% endblock %}
             </ol>
         </div>
+
+        {% block content %}
         {% endblock %}
-    {% block content %}
-    {% endblock %}
+        {% endblock %}
     </body>
     <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
