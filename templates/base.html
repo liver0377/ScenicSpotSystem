@@ -46,7 +46,7 @@
                        {{ user.username }} 
                     </a>
                     <div class="dropdown-menu drop-menu-right" aria-labelledby="userMenu">
-                        <a class="dropdown-item" href="#"> 我的账户 </a>
+                        <a class="dropdown-item" href="{% url 'account_card' 'info' %}"> 我的账户 </a>
                         <a class="dropdown-item" href="{% url 'logout' %}"> 登出 </a>
                     </div>
                 </li>
@@ -67,6 +67,8 @@
             </ol>
         </div>
         {% endblock %}
+    {% block content %}
+    {% endblock %}
     </body>
     <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>

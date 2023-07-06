@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
+from django.http import Http404
 from .forms import SignUpForm
 
 # Create your views here.
@@ -21,8 +23,20 @@ def signup(request):
     
     return render(request, "signup.html", { "form": form})
 
+@login_required(login_url="login")
 def show_account_information(request):
-    return render(request, "account_informateion", )
+    return render(request, "account_information.html")
+
+
+@login_required(login_url="login")
+def account_card(request, card_name):
+    if card_name == "info":
+        return render(request, "account_info.html") 
+    elif card_name == "orders":
+        orders = request.user.orders.all()
+        return render(request, "account_orders.html", { "orders": orders })
+    else:
+        return Http404()
 
 
 

@@ -32,4 +32,8 @@ urlpatterns = [
 
     # 使用django官方的LoginView
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
+
+
+    path("account/<str:card_name>/", accounts_views.account_card, name="account_card")
+
 ]
