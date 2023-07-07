@@ -37,7 +37,9 @@
               {% for ticket in order.tickets.all %}
               <p> {{ ticket.name }} {{ticket.scenic_spot.ticket_price }}￥ </p>
               {% endfor %}
+              {% if order.get_status_display != "paid" %}
               <a class="btn btn-success pay-order-btn" href="{% url 'alipay' %}?order_id={{ order.pk }}">支付订单</a>
+              {% endif %}
             </td>
             
           </tr>
