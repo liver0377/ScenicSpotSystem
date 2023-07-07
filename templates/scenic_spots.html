@@ -1,26 +1,39 @@
 {% extends "introduction_base.html" %}
 
-{% block introduction_content %}
-    <div class="container">
-        {% for spot in scenic_spots %}
-            <div class="card">
-                <div class="card-header">
-                    {{ spot.name }}
-                </div>
-                <div class="card-body">
-                    <p class="card-text">{{ spot.description }}</p>
-                    <p class="card-text">票价：{{ spot.ticket_price }}￥</p>
-                </div>
-                <div class="card-footer row">
-                    <div class="col-auto">
-                        <img src="{{ spot.image.url }}" alt="{{ spot.name }}" class="img-fluid">
-                    </div>
-                    <div class="col-auto">
-                        <a href="#" target="_blank" class="btn btn-primary btn-sm">马上购票</a>
-                    </div>
-                </div>
+{% load static %}
 
+{% block introduction_content %}
+<div class="container">
+    {% for spot in scenic_spots %}
+    <div class="card">
+        <div class="card-header">
+            {{ spot.name }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ spot.description }}</p>
+            <p class="card-text">票价：{{ spot.ticket_price }}￥</p>
+        </div>
+        <div class="card-footer row">
+            <div class="col-auto">
+                <img src="{{ spot.image.url }}" alt="{{ spot.name }}" class="img-fluid">
             </div>
-        {% endfor %}
+
+            <div class="col-auto">
+                <a href="#" class="btn btn-primary btn-sm add-to-order" 
+                    data-spot-id="{{ spot.pk }}" 
+                    data-original-url="{{ request.get_full_path }}" 
+                    data-add-ticket-url="{% url 'add_ticket_to_order' spot.pk %}">加入订单</a>
+            </div>
+        </div>
     </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block js_script %}
+<script src="{% static 'js/add_to_order.js' %}"> </script>
+<script>
+    var csrfToken = "{{ csrf_token }}";
+</script>
 {% endblock %}

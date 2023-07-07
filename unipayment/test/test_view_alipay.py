@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from ..views import alipay
 from accounts.models import Order, Ticket, OrderStatus
+from introduction.models import ScenicSpot, Province
 
 class AliPayTests(TestCase):
     def setUp(self):
@@ -11,8 +12,17 @@ class AliPayTests(TestCase):
        self.user = User.objects.create(username="xiaowang", email="xiaowang@gmail.com", password="123") 
        self.order = Order.objects.create(name="Order#1", status=OrderStatus.PAID, user=self.user)
 
-       ticket1 = Ticket.objects.create(name="星海广场门票", unit_price=100, order=self.order)
-       ticket2 = Ticket.objects.create(name="金沙滩门票", unit_price=200, order=self.order)
+       liaoning = Province.objects.create(name="辽宁")
+       self.scenic_spot = ScenicSpot.objects.create(
+           name="星海广场",
+           description="xxx",
+           ticket_price=20,
+           image="scenic_spots/example.jgp",
+           province=liaoning
+       )
+
+       ticket1 = Ticket.objects.create(name="星海广场门票", scenic_spot=self.scenic_spot, order=self.order)
+       ticket2 = Ticket.objects.create(name="金沙滩门票", scenic_spot=self.scenic_spot, order=self.order)
     
     def test_view_order_pay(self):
         """

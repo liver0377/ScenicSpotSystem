@@ -39,7 +39,7 @@ def alipay(request):
 
 
     order_id = request.GET.get('order_id')
-    order = Order.objects.get(id=order_id)
+    order = Order.objects.get(pk=order_id)
  
     order_string = alipay_client.api_alipay_trade_page_pay(
         out_trade_no = str(int(time.time())) + str(random.randint(1, 1000)), 
@@ -64,15 +64,8 @@ def shop_result(request):
             
             # 创建ticket, order对象并写入数据库
 
-            user = request.user
-            ticket = request.ticket
-            order_count = Order.objects.filter(user=user).count()
-            order_price = ticket.unit_price     # TODO: 一个order应该可以包含多个ticket
+            Order.objects.filter(status=OrderStatus.NOT_PAID).update(status=OrderStatus.PAID)
 
-            order = Order.objects.create(name="Order#{}".format(order_count + 1), status=OrderStatus.PAID, price=order_price, user=user) 
-            Ticket.objects.create(name=ticket.name, unit_price=ticket.unit_price, order=order)
-            
-            print("支付成功，后台已经校验过了，金币+1")
             return redirect("home")
 
         return HttpResponse("支付失败")

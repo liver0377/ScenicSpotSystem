@@ -37,13 +37,17 @@ urlpatterns = [
     # 使用django官方的LoginView
     path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
 
-
     path("account/<str:card_name>/", accounts_views.account_card, name="account_card"),
 
     path("introduction/scenicspot/<str:province_name>/", introduction_views.province_spots, name="province_spots"),
 
     path("shop/alipay/", uni_views.alipay, name="alipay"),
 
+    # 用户点击"加入订单", 触发该路由
+    path("add_ticket_to_order/<int:spot_id>/", accounts_views.add_ticket_to_order, name="add_ticket_to_order"),
+
     path("shop/result/", uni_views.shop_result, name="shop_result"),
+
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

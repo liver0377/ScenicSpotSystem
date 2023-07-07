@@ -23,6 +23,7 @@
             <th>订单状态</th>
             <th>订单价格</th>
             <th>购买时间</th>
+            <th>订单内容</th>
           </tr>
         </thead>
         <tbody>
@@ -30,8 +31,15 @@
           <tr>
             <td>{{ order.name }}</td>
             <td>{{ order.get_status_display }}</td>
-            <td>{{ order.price }}</td>
+            <td>{{ order.caculate_total_price }}</td>
             <td>{{ order.purchase_time }}</td>
+            <td>
+              {% for ticket in order.tickets.all %}
+              <p> {{ ticket.name }} {{ticket.scenic_spot.ticket_price }}￥ </p>
+              {% endfor %}
+              <a class="btn btn-success pay-order-btn" href="{% url 'alipay' %}?order_id={{ order.pk }}">支付订单</a>
+            </td>
+            
           </tr>
           {% endfor %}
         </tbody>
