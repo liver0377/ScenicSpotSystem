@@ -15,7 +15,9 @@ class IntroductionTests(TestCase):
             province=liaoning,
         )
         self.url_home = reverse("home")
-        self.url_province = reverse("province_spots", kwargs={ "province_name": "liaoning" })
+        self.url_province = reverse(
+            "province_spots", kwargs={"province_name": "辽宁"}
+        )
 
     def test_view_home(self):
         view = resolve(self.url_home)
@@ -32,3 +34,19 @@ class IntroductionTests(TestCase):
     def test_province(self):
         response = self.client.get(self.url_province)
         self.assertEquals(response.status_code, 200)
+
+
+class IntroductionInvalidTests(TestCase):
+    def setUp(self):
+        self.url_home = reverse("home")
+        self.url_province = reverse(
+            "province_spots", kwargs={"province_name": "辽宁"}
+        )
+    
+    def test_home(self):
+        response = self.client.get(self.url_home)
+        self.assertContains(response, "Province not found.")
+    
+    def test_province(self):
+        response = self.client.get(self.url_province)
+        self.assertContains(response, "Province not found.")

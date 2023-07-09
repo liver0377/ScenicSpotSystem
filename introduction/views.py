@@ -9,23 +9,22 @@ from .models import Province
 from django.shortcuts import render
 from .models import Province
 
+
 def home(request):
-    try:
-        province = Province.objects.first()
-        scenic_spots = []
+    province = Province.objects.first()
+    if not province:
+        return render(request, "error.html", {"error_message": "Province not found."})
+    scenic_spots = province.scenic_spots.all()
 
-        if province:
-            scenic_spots = province.scenic_spots.all()
-
-        return render(request, "scenic_spots.html", {
+    return render(
+        request,
+        "scenic_spots.html",
+        {
             "provinces": Province.objects.all(),
             "scenic_spots": scenic_spots,
-            "cur_province": province
-        })
-
-    except Exception as e:
-        return render(request, "error.html", {"error_message": str(e)})
-
+            "cur_province": province,
+        },
+    )
 
 
 def province_spots(request, province_name):
@@ -33,12 +32,15 @@ def province_spots(request, province_name):
         province = get_object_or_404(Province, name=province_name)
         scenic_spots = province.scenic_spots.all()
 
-        return render(request, "scenic_spots.html", {
-            "provinces": Province.objects.all(),
-            "scenic_spots": scenic_spots,
-            "cur_province": province
-        })
-    
+        return render(
+            request,
+            "scenic_spots.html",
+            {
+                "provinces": Province.objects.all(),
+                "scenic_spots": scenic_spots,
+                "cur_province": province,
+            },
+        )
+
     except Http404:
         return render(request, "error.html", {"error_message": "Province not found."})
-

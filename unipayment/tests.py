@@ -24,6 +24,8 @@ class UniPaymentTests(TestCase):
         # 验证重定向状态码
         self.assertEqual(response.status_code, 302)
     
+        
+    
 
 
         

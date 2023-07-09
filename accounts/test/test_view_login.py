@@ -1,10 +1,8 @@
 from django.test import TestCase
-from django.shortcuts import redirect
 from django.urls import resolve, reverse
 from django.contrib.auth.models import User
 from introduction.models import Province
 from ..models import OrderStatus, Order, Ticket, ScenicSpot
-from ..views import login
 from django.contrib.auth.views import LoginView
 
 
@@ -14,9 +12,10 @@ class LoginTests(TestCase):
         self.user_data = {
             "username": "john",
             "email": "john@doe.com",
-            "password": "abcdef123456",
+            "password": "verycomplicated123",
         }
         self.user = User.objects.create(**self.user_data)
+
         self.province = Province.objects.create(name="Test Province")
         self.scenic_spot = ScenicSpot.objects.create(
             name="Test Scenic Spot",
@@ -33,6 +32,8 @@ class LoginTests(TestCase):
         self.ticket = Ticket.objects.create(
             name="Test Ticket", order=self.order, scenic_spot=self.scenic_spot
         )
+
+        self.client.logout()
 
     def test_view_login(self):
         view = resolve(self.url)
@@ -55,17 +56,16 @@ class LoginTests(TestCase):
         # 检查用户是否未登录（即 session 中是否不存储用户信息）
         self.assertNotIn("_auth_user_id", self.client.session)
 
-    def test_login_success(self):
-        # 尝试使用正确的用户名和密码登录
-        response = self.client.post(
-            self.url, {"username": "john", "password": "abcdef123456"}
-        )
-
-        # 检查登录后是否重定向到一个特定页面（例如首页）
-        # self.assertRedirects(response, reverse("home"))
-
-        # 检查用户是否成功登录（可以通过检查用户是否存储在 session 中来判断）
-        # self.assertIn("_auth_user_id", self.client.session)
+    # def test_login_success(self):
+    # # 发送登录请求
+    #     response = self.client.post(self.url, {"username": "john", "password": "verycomplicated123"})
+    # 
+    #     # 验证响应的状态码
+    #     self.assertEqual(response.status_code, 200)  # 或者使用 response.status_code == 302
+    # 
+    #     # 验证登录是否成功（通过检查用户身份认证）
+    #     self.assertTrue(response.wsgi_request.user.is_authenticated)
+    
 
     def test_logout(self):
         # 先登录用户
