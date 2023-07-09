@@ -22,6 +22,7 @@ from introduction import views as introduction_views
 from django.conf import settings
 from django.conf.urls.static import static
 from unipayment import views as uni_views 
+from news import views as news_views
 
 
 urlpatterns = [
@@ -48,6 +49,9 @@ urlpatterns = [
 
     path("shop/result/", uni_views.shop_result, name="shop_result"),
 
+    path("news/<int:article_id>/", news_views.news_detail, name="news_detail"),
+
+    path("news/", news_views.show_news, name="show_news"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
