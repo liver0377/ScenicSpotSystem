@@ -3,3 +3,5 @@ django-extensions==3.2.3
 django-widget-tweaks==1.4.12
 Pillow==9.3.0
 python-alipay-sdk==3.3.0
+coverage==4.5.3
+coveragePy==1.6.0
