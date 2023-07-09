@@ -36,8 +36,6 @@ def alipay(request):
     """
     alipay_client = create_alipay_client() 
 
-
-
     order_id = request.GET.get('order_id')
     order = Order.objects.get(pk=order_id)
  
