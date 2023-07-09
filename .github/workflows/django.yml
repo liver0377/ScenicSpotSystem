@@ -28,3 +28,12 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+    - name: Generate Coverage Report
+      run: |
+        coverage run manage.py test
+        coverage xml -i 
+    - name: Upload report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+

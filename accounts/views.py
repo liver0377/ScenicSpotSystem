@@ -5,7 +5,7 @@ from django.contrib.auth.views import LogoutView
 from django.http import Http404, HttpResponse
 from .forms import SignUpForm
 from .models import Order, OrderStatus, Ticket
-from introduction.models import ScenicSpot, Province
+from introduction.models import ScenicSpot
 
 # Create your views here.
 def signup(request):

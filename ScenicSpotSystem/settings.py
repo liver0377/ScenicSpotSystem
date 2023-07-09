@@ -147,3 +147,4 @@ APP_PRIVATE_KEY_STRING = open(os.path.join(BASE_DIR, "keys/app_private_key.pem")
 ALIPAY_PUBLIC_KEY_STRING = open(os.path.join(BASE_DIR, "keys/alipay_public_key.pem"), 'r').read()
 ALIPAY_RETURN_URL = 'http://127.0.0.1:8000/shop/result/'   # 购买完成之后跳转到该网址
 ALIPAY_DEBUG = True
+
